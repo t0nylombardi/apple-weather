@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AppleWeather</title>
+    <title>Apple-Weather</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initAutocomplete&libraries=places"
+      async
+      defer
+      data-turbolinks-eval="false"
+    ></script>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-[#192734]">
+    <main class="container mx-auto mt-28 px-5 flex items-center justify-center">
+      <%= yield %>
+    </main>
   </body>
 </html>

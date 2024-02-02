@@ -1,11 +1,6 @@
-inherit_from: .rubocop_todo.yml
-
-
 require:
   - rubocop-rails
   - rubocop-rspec
-  - rubocop-performance
-  - rubocop-capybara
 
 AllCops:
   TargetRubyVersion: 3.2.1
@@ -196,5 +191,5 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/NestedGroups:
   Max: 4
 
-RSpec/ExampleLength
+RSpec/ExampleLength:
   Max: 20
