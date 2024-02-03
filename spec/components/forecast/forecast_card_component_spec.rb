@@ -1,15 +1,22 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Forecast::ForecastCardComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  it 'renders the forecast card with the correct content' do
+    date = Time.zone.today
+    high = 25
+    low = 15
+    description = 'Sunny'
+    image = 'sunny.png'
+
+    render_inline(described_class.new(date:, high:, low:, description:, image:))
+
+    expect(page).to have_css 'p', text: 'Sunny'
+    expect(page).to have_text("#{high}°")
+    expect(page).to have_text("#{low}°")
+    expect(page).to have_text(description)
+    expect(page).to have_css("img[src*='#{image}']")
+  end
 end

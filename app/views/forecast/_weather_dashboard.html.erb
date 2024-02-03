@@ -1,33 +1,38 @@
-<div class="relative isolate overflow-hidden pt-16 pb-8">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
-      <div class="max-w-xl lg:max-w-lg">
-        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Check your local weather</h2>
-        <div>
-          <p class="mt-2 text-white">Enter your City or Zipcode</p>
-        </div>
-        <div class="mt-8">
-          <%= render Forecast::FormComponent.new %>
+<%= turbo_frame_tag "forecast" do %>
+  <div class="relative isolate overflow-hidden pt-16 pb-8">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+        <div class="max-w-xl">
+          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Check your local weather</h2>
+          <div class="mt-8">
+            <%= render Forecast::FormComponent.new %>
+          </div>
         </div>
       </div>
-    </div>
       <div class="mt-4 text-white">
-        <% if forecast[:cached] %>
-          <p class="text-sm">Cached</p>
+        <%= display_cached_text(forecast) %>
+
+        <% unless flash.empty? %>
+          <% flash.each do |type, message| %>
+            <P class="text-md text-red-500">
+              <%= alert %>
+            </p>
+          <% end %>
         <% end %>
       </div>
+    </div>
   </div>
-</div>
 
-<% if forecast['forecastday'] %>
-  <div class="flex flex-row justify-around items-center p-8 rounded-md sm:px-12">
-    <% forecast['forecastday'].each do |day| %>
-      <%= render Forecast::ForecastCardComponent.new(
-        date: day['date'],
-        high: day['day']['maxtemp_f'].to_i,
-        low: day['day']['mintemp_f'].to_i,
-        description: day['day']['condition']['text'],
-        image: day['day']['condition']['icon']) %>
-    <% end %>
-  </div>
+  <% if forecast['forecastday'] %>
+    <div class="flex flex-row justify-around items-center p-8 rounded-md sm:px-12">
+      <% forecast['forecastday'].each do |day| %>
+        <%= render Forecast::ForecastCardComponent.new(
+          date: day['date'],
+          high: day['day']['maxtemp_f'].to_i,
+          low: day['day']['mintemp_f'].to_i,
+          description: day['day']['condition']['text'],
+          image: day['day']['condition']['icon']) %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Forecast::FormComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'renders the form with the correct attributes' do
+    render_inline(described_class.new)
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+    expect(page).to have_css('form', count: 1)
+    expect(page).to have_css('form[class="mt-8"]')
+
+    expect(page).to have_css('label[for="search"]', text: 'Enter your address')
+    expect(page).to have_css('input[type="text"][id="location"][placeholder="Enter your address"][required]')
+    expect(page).to have_field('postal_code', type: 'hidden')
+  end
 end
