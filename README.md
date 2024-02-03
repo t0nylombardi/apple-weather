@@ -7,7 +7,6 @@ weather forecasting API and provide weather forecast data for a given location.
 It incorporates caching to improve performance and reduce unnecessary API calls.
 
 ## Dependencies
-
 - Ruby (>= 2.5.0)
 - Rails (>= 5.2.0)
 - ActiveSupport (>= 5.2.0)
