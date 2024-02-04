@@ -22,12 +22,12 @@
       </div>
     </div>
   </div>
-
-  <% if forecast['forecastday'] %>
+  <% if forecast&.fetch("forecast", nil) %>
     <div class="flex flex-row justify-around items-center p-8 rounded-md sm:px-12">
-      <% forecast['forecastday'].each do |day| %>
+      <% forecast['forecast']['forecastday'].each do |day| %>
         <%= render Forecast::ForecastCardComponent.new(
           date: day['date'],
+          current: forecast['current']['temp_f'].to_i,
           high: day['day']['maxtemp_f'].to_i,
           low: day['day']['mintemp_f'].to_i,
           description: day['day']['condition']['text'],

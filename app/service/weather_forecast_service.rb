@@ -89,7 +89,7 @@ class WeatherForecastService
   # @return [Hash] Forecast data.
   def parse_response(response_body)
     data = JSON.parse(response_body)
-    data = data['forecast']
+    Rails.logger.info("WeatherAPI response: #{data}")
 
     cache_forecast(data) unless @postal_code.nil?
     data

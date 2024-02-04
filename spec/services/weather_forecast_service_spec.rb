@@ -48,7 +48,7 @@ RSpec.describe WeatherForecastService do
       it 'returns parsed response data' do
         allow(service).to receive(:api_request).and_return(forecast_service_valid)
 
-        expect(service.send(:fetch_data_from_api)).to eq({ 'forecastday' => 'some data' })
+        expect(service.send(:fetch_data_from_api)).to eq({ 'forecast' => { 'forecastday' => 'some data' } })
       end
     end
 
